@@ -1,0 +1,45 @@
+using System;
+using System.IO;
+using System.Windows.Forms;
+
+namespace FileManipulationApp
+{
+    public partial class MainForm : Form
+    {
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        private void OpenFileButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = openFileDialog.FileName; // 선택한 파일 이름 가져오기
+
+                // 다른 창에 파일 이름 전달
+                AnotherForm anotherForm = new AnotherForm(fileName);
+                anotherForm.Show();
+            }
+        }
+    }
+
+    public partial class AnotherForm : Form
+    {
+        private string selectedFileName;
+
+        public AnotherForm(string fileName)
+        {
+            InitializeComponent();
+            selectedFileName = fileName;
+            DisplayFileName();
+        }
+
+        private void DisplayFileName()
+        {
+            fileNameLabel.Text = selectedFileName; // 파일 이름을 라벨에 표시
+        }
+    }
+}
